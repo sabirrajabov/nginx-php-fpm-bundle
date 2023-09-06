@@ -1,0 +1,29 @@
+---
+
+- name: Gather facts about the system
+  setup:
+
+- name: Install the Nginx latest package for Ubuntu
+  apt:
+    update_cache: yes
+    name: nginx
+    state: latest
+
+- name: Check UFW service status
+  service:
+    name: ufw
+  register: ufw_status
+
+- name: Add port 80 to UFW if it is running
+  ufw:
+    rule: allow
+    port: 80
+  when: ufw_status.status == 'running'
+
+- name: Add port 443 to UFW if it is running
+  ufw:
+    rule: allow
+    port: 443
+  when: ufw_status.status == 'running'
+
+

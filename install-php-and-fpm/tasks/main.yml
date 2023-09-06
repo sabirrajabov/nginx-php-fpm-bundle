@@ -1,0 +1,24 @@
+---
+
+- name: Install php 8.2 on ubuntu endpoint
+  apt:
+    name: php
+    state: latest
+    update_cache: yes
+
+- name: Install php-fpm on ubuntu endpoint
+  apt:
+    name: php-fpm
+    state: latest
+    update_cache: yes
+      
+- name: Installing composer package
+  apt:
+    name: composer
+    state: latest
+    update_cache: yes
+
+- name: Starting php8.2-fpm service
+  service:
+    name: php8.2-fpm
+    state: started

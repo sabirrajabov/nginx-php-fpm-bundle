@@ -1,0 +1,34 @@
+---
+
+- name: Create directory /etc/nginx/ssl for ssl files
+  file:
+    path: /etc/nginx/ssl
+    state: directory
+  register: ssl_directory_result
+  changed_when: false
+
+- name: copy cert.cer and key.key to /etc/nginx/ssl directory
+  copy:
+    src: ./cert.cer
+    dest: /etc/nginx/ssl/
+
+
+- name: Copy key.key to /etc/nginx/ssl directory
+  copy:
+    src: ./key.key
+    dest: /etc/nginx/ssl
+
+- name: Copy production.conf to /etc/nginx/conf.d
+  copy:
+    src: ./production.conf
+    dest: /etc/nginx/conf.d
+
+- name: Restarting nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Enable nginx at boot
+  service:
+    name: nginx
+    enabled: yes

@@ -1,0 +1,19 @@
+---
+
+- name: Running php related roles
+  hosts: localhost
+  become: yes
+  roles:
+  - install-php-and-fpm
+
+- name: Running nginx based roles
+  hosts: localhost
+  become: yes
+  roles:
+  - install-nginx
+
+- name: Importing config and certs
+  hosts: localhost
+  become: yes
+  roles:
+    - import-config-and-certs  
